@@ -1,6 +1,6 @@
 package com.acem.demo.constants;
 
-public interface Constants {
+public interface HolidayConstants {
 
    String URL = "https://publicholidays.asia/nepal/";
 

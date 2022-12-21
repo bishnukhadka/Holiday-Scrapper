@@ -1,6 +1,6 @@
 package com.acem.demo.util;
 
-import com.acem.demo.constants.Constants;
+import com.acem.demo.constants.HolidayConstants;
 import com.acem.demo.scrapper.Scrapper;
 import com.acem.demo.scrapper.impl.HolidayScrapperImpl;
 
@@ -18,9 +18,16 @@ import static java.time.temporal.TemporalAdjusters.firstInMonth;
 public class HolidayUtil {
 
     public static List<Date> findAllHolidays(String year){
-        Scrapper<Date> scrapper = new HolidayScrapperImpl();
+        Scrapper<Date, String> scrapper = new HolidayScrapperImpl();
 
         return mergeAndSort(scrapper.scrap(year),findAllSaturdayOfTheYear(year));
+    }
+
+    public static Map<Date, String> findAllHolidaysUsingMap(String year){
+        Scrapper<Date, String> scrapper = new HolidayScrapperImpl();
+
+        Map holidayMap = scrapper.scrapMap("2022");
+        return holidayMap;
     }
 
     public static List<Date> mergeAndSort(List<Date> arrayList1, List<Date> arrayList2){
@@ -55,7 +62,7 @@ public class HolidayUtil {
     public static Date toDate(String date){
         Date date1 = null;
         try{
-             date1 = new SimpleDateFormat(Constants.DATE_FORMAT).parse(date);
+             date1 = new SimpleDateFormat(HolidayConstants.DATE_FORMAT).parse(date);
            // System.out.println(date1);
         }catch (ParseException ex){
             System.out.println("ParseException occurred." + ex.getMessage());
